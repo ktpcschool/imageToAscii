@@ -1,3 +1,5 @@
+"""image_to_ascii_art.py - Copyright 2019 Tatsuro Watanabe"""
+
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
