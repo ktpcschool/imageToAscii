@@ -43,7 +43,7 @@ def main():
     characters = 'dog '  # アスキーアートに使用する文字列
     width, height = input_image.size
     font = 'msgothic.ttc'
-    division = 128  # 分割する数
+    division = 128  # 分割数
     font_size = width // division
     encoding = 'utf-8'
     input_font = ImageFont.truetype(font, font_size, encoding=encoding)
