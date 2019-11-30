@@ -42,7 +42,7 @@ def main():
     input_image = Image.open(input_file)
     characters = 'dog '  # アスキーアートに使用する文字列
     width, height = input_image.size
-    font = 'msgothic.ttc'
+    font = 'msgothic.ttc'  # アスキーアートに使用するフォント
     division = 128  # 分割数
     font_size = width // division
     encoding = 'utf-8'
