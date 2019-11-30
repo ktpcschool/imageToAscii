@@ -1,0 +1,56 @@
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
+
+
+# フォントの濃度を取得
+def get_concentration_of_font(character, input_font):
+    width, height = input_font.getsize(character)
+    image = Image.new('RGB', (width, height))
+    draw = ImageDraw.Draw(image)
+    draw.text((0, 0), character, font=input_font, fill=(255, 255, 255))
+    gray_img = image.convert('L')
+    pixel = [gray_img.getpixel((x, y)) for y in range(height) for x in range(width)]
+    n = sum(x < 64 for x in pixel)
+    return n / len(pixel)
+
+
+# 画像をアスキーアートに変換
+def image_to_ascii(input_image, sorted_character_list, input_font):
+    input_pixel = input_image.load()
+    width, height = input_image.size
+    output_image = Image.new('RGB', (width, height), (255, 255, 255))
+    draw = ImageDraw.Draw(output_image)
+    list_length = len(sorted_character_list)
+    n = 256 / list_length
+    font_size = input_font.size
+    for y in range(0, height, font_size):
+        for x in range(0, width, font_size):
+            r, g, b = input_pixel[x, y]
+            gray = r * 0.299 + g * 0.587 + b * 0.114
+            index = int(gray / n)
+            character = sorted_character_list[index][0]
+            draw.text((x, y), character, font=input_font, fill=(0, 0, 0))
+    return output_image
+
+
+def main():
+    input_file = 'dog.jpg'
+    output_file = 'ascii_dog.jpg'
+    input_image = Image.open(input_file)
+    characters = 'dog '
+    width, height = input_image.size
+    font = 'msgothic.ttc'
+    division = 128
+    font_size = width // division
+    encoding = 'utf-8'
+    input_font = ImageFont.truetype(font, font_size, encoding=encoding)
+    character_dict = {character: get_concentration_of_font(character, input_font) for character in characters}
+
+    sorted_character_list = sorted(character_dict.items(), key=lambda x: x[1])
+    output_image = image_to_ascii(input_image, sorted_character_list, input_font)
+    output_image.save(output_file)
+
+
+if __name__ == '__main__':
+    main()
