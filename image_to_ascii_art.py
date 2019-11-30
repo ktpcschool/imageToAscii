@@ -40,10 +40,10 @@ def main():
     input_file = 'dog.jpg'  # 変換する画像ファイル
     output_file = 'ascii_dog.jpg'   # 変換後の画像ファイル
     input_image = Image.open(input_file)
-    characters = 'dog '
+    characters = 'dog '  # アスキーアートに使用する文字列
     width, height = input_image.size
     font = 'msgothic.ttc'
-    division = 128
+    division = 128  # 分割する数
     font_size = width // division
     encoding = 'utf-8'
     input_font = ImageFont.truetype(font, font_size, encoding=encoding)
