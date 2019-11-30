@@ -37,8 +37,8 @@ def image_to_ascii(input_image, sorted_character_list, input_font):
 
 
 def main():
-    input_file = 'dog.jpg'
-    output_file = 'ascii_dog.jpg'
+    input_file = 'dog.jpg'  # 変換する画像ファイル
+    output_file = 'ascii_dog.jpg'   # 変換後の画像ファイル
     input_image = Image.open(input_file)
     characters = 'dog '
     width, height = input_image.size
@@ -48,7 +48,6 @@ def main():
     encoding = 'utf-8'
     input_font = ImageFont.truetype(font, font_size, encoding=encoding)
     character_dict = {character: get_concentration_of_font(character, input_font) for character in characters}
-
     sorted_character_list = sorted(character_dict.items(), key=lambda x: x[1])
     output_image = image_to_ascii(input_image, sorted_character_list, input_font)
     output_image.save(output_file)
