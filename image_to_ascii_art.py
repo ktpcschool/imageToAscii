@@ -43,12 +43,16 @@ def main():
     characters = 'dog '  # アスキーアートに使用する文字列
     width, height = input_image.size
     font = 'msgothic.ttc'  # アスキーアートに使用するフォント
+    font_size_to_get_concentration = 256
+    encoding = 'utf-8'
+    font_to_get_concentration = ImageFont.truetype(font, font_size_to_get_concentration, encoding=encoding)
+    character_dict = \
+        {character: get_concentration_of_font(character, font_to_get_concentration) for character in characters}
+    sorted_character_list = sorted(character_dict.items(), key=lambda x: x[1])
+    print(sorted_character_list)
     division = 128  # 分割数
     font_size = width // division
-    encoding = 'utf-8'
     input_font = ImageFont.truetype(font, font_size, encoding=encoding)
-    character_dict = {character: get_concentration_of_font(character, input_font) for character in characters}
-    sorted_character_list = sorted(character_dict.items(), key=lambda x: x[1])
     output_image = image_to_ascii(input_image, sorted_character_list, input_font)
     output_image.save(output_file)
 
