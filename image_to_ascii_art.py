@@ -13,7 +13,7 @@ def get_concentration_of_font(character, input_font):
     draw.text((0, 0), character, font=input_font, fill=(255, 255, 255))
     gray_img = image.convert('L')
     pixel = [gray_img.getpixel((x, y)) for y in range(height) for x in range(width)]
-    n = sum(x < 64 for x in pixel)
+    n = sum(x < 128 for x in pixel)
     return n / len(pixel)
 
 
