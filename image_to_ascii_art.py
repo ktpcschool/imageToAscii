@@ -5,8 +5,8 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 
-# フォントの濃度を取得
-def get_concentration_of_font(character, input_font):
+# 文字の濃度を取得
+def get_concentration_of_character(character, input_font):
     width, height = input_font.getsize(character)
     image = Image.new('RGB', (width, height))
     draw = ImageDraw.Draw(image)
@@ -47,7 +47,7 @@ def main():
     encoding = 'utf-8'
     font_to_get_concentration = ImageFont.truetype(font, font_size_to_get_concentration, encoding=encoding)
     character_dict = \
-        {character: get_concentration_of_font(character, font_to_get_concentration) for character in characters}
+        {character: get_concentration_of_character(character, font_to_get_concentration) for character in characters}
     sorted_character_list = sorted(character_dict.items(), key=lambda x: x[1])
     print(sorted_character_list)
     division = 128  # 分割数
