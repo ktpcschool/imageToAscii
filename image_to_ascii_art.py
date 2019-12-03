@@ -19,7 +19,7 @@ def get_concentration_of_character(character, input_font):
 
 # 画像をアスキーアートに変換
 def image_to_ascii(input_image, sorted_character_list, input_font):
-    input_pixel = input_image.load()
+    gray_img = input_image.convert('L')
     width, height = input_image.size
     output_image = Image.new('RGB', (width, height), (255, 255, 255))
     draw = ImageDraw.Draw(output_image)
@@ -28,8 +28,7 @@ def image_to_ascii(input_image, sorted_character_list, input_font):
     font_size = input_font.size
     for y in range(0, height, font_size):
         for x in range(0, width, font_size):
-            r, g, b = input_pixel[x, y]
-            gray = r * 0.299 + g * 0.587 + b * 0.114
+            gray = gray_img.getpixel((x, y))
             index = int(gray / n)
             character = sorted_character_list[index][0]
             draw.text((x, y), character, font=input_font, fill=(0, 0, 0))
