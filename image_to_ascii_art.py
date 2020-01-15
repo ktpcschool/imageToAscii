@@ -1,5 +1,9 @@
-"""image_to_ascii_art.py - Copyright 2019 Tatsuro Watanabe"""
-
+"""
+Copyright(c) 2019 Tatsuro Watanabe
+License: MIT
+https://github.com/ktpcschool/imageToAscii
+"""
+    
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
