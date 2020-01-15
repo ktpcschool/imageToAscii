@@ -1,5 +1,5 @@
 """
-Copyright(c) 2019 Tatsuro Watanabe
+Copyright(c) 2020 Tatsuro Watanabe
 License: MIT
 https://github.com/ktpcschool/imageToAscii
 """
