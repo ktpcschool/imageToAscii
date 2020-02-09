@@ -10,14 +10,12 @@ from PIL import ImageFont
 
 
 # 文字の濃度を取得
-def get_concentration_of_character(character, input_font):
-    width, height = input_font.getsize(character)
+def get_concentration_of_character(character, input_font, width, height):
     image = Image.new('RGB', (width, height))
     draw = ImageDraw.Draw(image)
     draw.text((0, 0), character, font=input_font, fill=(255, 255, 255))
-    gray_img = image.convert('L')
-    pixel = [gray_img.getpixel((x, y)) for y in range(height) for x in range(width)]
-    n = sum(x < 128 for x in pixel)
+    pixel = [image.getpixel((x, y)) for y in range(height) for x in range(width)]
+    n = sum(x == (0, 0, 0) for x in pixel)
     return n / len(pixel)
 
 
@@ -25,7 +23,7 @@ def get_concentration_of_character(character, input_font):
 def image_to_ascii(input_image, sorted_character_list, input_font):
     gray_img = input_image.convert('L')
     width, height = input_image.size
-    output_image = Image.new('RGB', (width, height), (255, 255, 255))
+    output_image = Image.new('RGB', (width, height), color='white')
     draw = ImageDraw.Draw(output_image)
     list_length = len(sorted_character_list)
     n = 256 / list_length
@@ -41,16 +39,18 @@ def image_to_ascii(input_image, sorted_character_list, input_font):
 
 def main():
     input_file = 'dog.jpg'  # 変換する画像ファイル
-    output_file = 'ascii_dog.jpg'   # 変換後の画像ファイル
+    output_file = 'ascii_' + input_file  # 変換後の画像ファイル
     input_image = Image.open(input_file)
     characters = 'dog '  # アスキーアートに使用する文字列
     width, height = input_image.size
-    font = 'msgothic.ttc'  # アスキーアートに使用するフォント
+    font = 'font/fonts-japanese-gothic.ttf'  # アスキーアートに使用するフォント
     font_size_to_get_concentration = 256
     encoding = 'utf-8'
+    font_width, font_height = 256, 256
     font_to_get_concentration = ImageFont.truetype(font, font_size_to_get_concentration, encoding=encoding)
     character_dict = \
-        {character: get_concentration_of_character(character, font_to_get_concentration) for character in characters}
+        {character: get_concentration_of_character(character, font_to_get_concentration, font_width, font_height)
+         for character in characters}
     sorted_character_list = sorted(character_dict.items(), key=lambda x: x[1])
     print(sorted_character_list)
     division = 128  # 分割数
