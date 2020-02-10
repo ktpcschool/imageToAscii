@@ -1,12 +1,6 @@
-"""
-Copyright(c) 2020 Tatsuro Watanabe
-License: MIT
-https://github.com/ktpcschool/imageToAscii
-"""
-    
-from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFont
+import os
+
+from PIL import Image, ImageDraw, ImageFont
 
 
 # 文字の濃度を取得
@@ -19,7 +13,6 @@ def get_concentration_of_character(character, input_font, width, height):
     return n / len(pixel)
 
 
-# 画像をアスキーアートに変換
 def image_to_ascii(input_image, sorted_character_list, input_font):
     gray_img = input_image.convert('L')
     width, height = input_image.size
@@ -33,16 +26,23 @@ def image_to_ascii(input_image, sorted_character_list, input_font):
             gray = gray_img.getpixel((x, y))
             index = int(gray / n)
             character = sorted_character_list[index][0]
-            draw.text((x, y), character, font=input_font, fill=(0, 0, 0))
+            r, g, b = input_image.getpixel((x, y))
+            draw.text((x, y), character, font=input_font, fill=(r, g, b))
     return output_image
 
 
 def main():
-    input_file = 'Mandrill.bmp'  # 変換する画像ファイル
-    output_file = 'ascii_' + input_file  # 変換後の画像ファイル
+    input_file = 'Johannes_Vermeer_(1632-1675)_-_The_Girl_With_The_Pearl_Earring_(1665).jpg'  # 変換する画像ファイル
+    input_file_without_ext = os.path.splitext(os.path.basename(input_file))[0]
+    output_file = 'ascii_' + input_file_without_ext + '.png'  # 変換後の画像ファイル
     input_image = Image.open(input_file)
-    characters = 'Mandrill '  # アスキーアートに使用する文字列
+    characters = '0123456789'  # アスキーアートに使用する文字列
     width, height = input_image.size
+    division = 100  # 分割数
+    size = 2000
+    height = int(height * size / width)
+    width = size
+    input_image = input_image.resize((width, height))
     font = 'font/fonts-japanese-gothic.ttf'  # アスキーアートに使用するフォント
     font_size_to_get_concentration = 256
     encoding = 'utf-8'
@@ -53,12 +53,12 @@ def main():
          for character in characters}
     sorted_character_list = sorted(character_dict.items(), key=lambda x: x[1])
     print(sorted_character_list)
-    division = 64  # 分割数
     font_size = width // division
     input_font = ImageFont.truetype(font, font_size, encoding=encoding)
     output_image = image_to_ascii(input_image, sorted_character_list, input_font)
+    output_image.show()
     output_image.save(output_file)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
