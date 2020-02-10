@@ -13,6 +13,7 @@ def get_concentration_of_character(character, input_font, width, height):
     return n / len(pixel)
 
 
+# 画像をアスキーアートに変換
 def image_to_ascii(input_image, sorted_character_list, input_font):
     gray_img = input_image.convert('L')
     width, height = input_image.size
