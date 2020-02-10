@@ -3,7 +3,9 @@ Copyright(c) 2020 Tatsuro Watanabe
 License: MIT
 https://github.com/ktpcschool/imageToAscii
 """
-    
+
+import os
+
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
@@ -38,10 +40,11 @@ def image_to_ascii(input_image, sorted_character_list, input_font):
 
 
 def main():
-    input_file = 'Mandrill.bmp'  # 変換する画像ファイル
-    output_file = 'ascii_' + input_file  # 変換後の画像ファイル
+    input_file = 'dog.jpg'  # 変換する画像ファイル
+    input_file_without_ext = os.path.splitext(os.path.basename(input_file))[0]
+    output_file = 'ascii_' + input_file_without_ext + '.png'  # 変換後の画像ファイル
     input_image = Image.open(input_file)
-    characters = 'Mandrill '  # アスキーアートに使用する文字列
+    characters = 'dog '  # アスキーアートに使用する文字列
     width, height = input_image.size
     font = 'font/fonts-japanese-gothic.ttf'  # アスキーアートに使用するフォント
     font_size_to_get_concentration = 256
@@ -53,7 +56,7 @@ def main():
          for character in characters}
     sorted_character_list = sorted(character_dict.items(), key=lambda x: x[1])
     print(sorted_character_list)
-    division = 64  # 分割数
+    division = 128  # 分割数
     font_size = width // division
     input_font = ImageFont.truetype(font, font_size, encoding=encoding)
     output_image = image_to_ascii(input_image, sorted_character_list, input_font)

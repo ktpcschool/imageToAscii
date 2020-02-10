@@ -32,11 +32,11 @@ def image_to_ascii(input_image, sorted_character_list, input_font):
 
 
 def main():
-    input_file = 'Johannes_Vermeer_(1632-1675)_-_The_Girl_With_The_Pearl_Earring_(1665).jpg'  # 変換する画像ファイル
+    input_file = 'dog.jpg'  # 変換する画像ファイル
     input_file_without_ext = os.path.splitext(os.path.basename(input_file))[0]
     output_file = 'ascii_' + input_file_without_ext + '.png'  # 変換後の画像ファイル
     input_image = Image.open(input_file)
-    characters = '0123456789'  # アスキーアートに使用する文字列
+    characters = 'dog'  # アスキーアートに使用する文字列
     width, height = input_image.size
     division = 100  # 分割数
     size = 2000
