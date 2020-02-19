@@ -1,3 +1,9 @@
+"""
+Copyright(c) 2020 Tatsuro Watanabe
+License: MIT
+https://github.com/ktpcschool/imageToAscii
+"""
+
 import os
 
 from PIL import Image, ImageDraw, ImageFont
