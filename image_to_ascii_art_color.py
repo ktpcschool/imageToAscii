@@ -50,7 +50,7 @@ def main():
     height = int(height * size / width)
     width = size
     input_image = input_image.resize((width, height))
-    font = 'font/fonts-japanese-gothic.ttf'  # アスキーアートに使用するフォント
+    font = 'font/ipaexg.ttf'  # アスキーアートに使用するフォント
     font_size_to_get_concentration = 256
     encoding = 'utf-8'
     font_width, font_height = 256, 256

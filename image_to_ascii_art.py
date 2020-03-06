@@ -46,7 +46,7 @@ def main():
     input_image = Image.open(input_file)
     characters = 'dog '  # アスキーアートに使用する文字列
     width, height = input_image.size
-    font = 'font/fonts-japanese-gothic.ttf'  # アスキーアートに使用するフォント
+    font = 'font/ipaexg.ttf'  # アスキーアートに使用するフォント
     font_size_to_get_concentration = 256
     encoding = 'utf-8'
     font_width, font_height = 256, 256
