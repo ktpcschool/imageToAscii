@@ -21,6 +21,7 @@ def get_concentration_of_character(character, input_font, width, height):
 
 # 画像をアスキーアートに変換
 def image_to_ascii(input_image, sorted_character_list, input_font):
+    input_image = input_image.convert('RGB')
     gray_img = input_image.convert('L')
     width, height = input_image.size
     output_image = Image.new('RGB', (width, height), color='white')
